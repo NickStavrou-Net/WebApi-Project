@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using System.Web.Mvc;
 
 namespace WebApi._2
 {
@@ -6,7 +7,7 @@ namespace WebApi._2
     {
         protected void Application_Start()
         {
-
+            AreaRegistration.RegisterAllAreas();
         }
     }
 }

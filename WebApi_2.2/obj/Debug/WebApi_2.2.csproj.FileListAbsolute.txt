@@ -228,3 +228,4 @@ C:\Users\NickStavrou\source\repos\Git\WebApi_2.2\obj\Debug\WebApi_2.2.csproj.Cor
 C:\Users\NickStavrou\source\repos\Git\WebApi_2.2\obj\Debug\WebApi_2.2.csproj.CopyComplete
 C:\Users\NickStavrou\source\repos\Git\WebApi_2.2\obj\Debug\WebApi_2.2.dll
 C:\Users\NickStavrou\source\repos\Git\WebApi_2.2\obj\Debug\WebApi_2.2.pdb
+C:\Users\NickStavrou\source\repos\Git\WebApi_2.2\bin\WebApi_2.2.xml

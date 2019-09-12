@@ -4,13 +4,17 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Routing;
+using WebApi.Constraints;
+using WebApi.ExceptionHandlers;
 using WebApi.Filters;
-using WebApi_2._2.Constraints;
+using WebApi.Loggers;
 
 [assembly: OwinStartup(typeof(WebApi.Startup))]
 namespace WebApi
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Startup
     {
         public static HttpConfiguration HttpConfiguration { get; set; } = new HttpConfiguration();
@@ -21,8 +25,6 @@ namespace WebApi
 
             var json = config.Formatters.JsonFormatter.SerializerSettings;
             json.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
-            //comment it/or set it to 'none' in Production to get no whitespaces
             json.Formatting = Formatting.Indented;
 
             json.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -39,22 +41,19 @@ namespace WebApi
             constraintResolver.ConstraintMap.Add("identity", typeof(IdConstraint));
             config.MapHttpAttributeRoutes(constraintResolver);
 
+            config.Services.Replace(typeof(IExceptionLogger), new UnhandledExceptionLogger());
+            config.Services.Replace(typeof(IExceptionHandler), new UnhandledExceptionHadler());
+
             config.Filters.Add(new DbUpdateExceptionFilterAttribute());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional },
-                constraints: new { id = @"\d+" }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultNameApi",
-                routeTemplate: "api/{controller}/{name}",
-                defaults: new { name = RouteParameter.Optional }
+                defaults: new { id = RouteParameter.Optional }
             );
 
             app.UseWebApi(config);
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

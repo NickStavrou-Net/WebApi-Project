@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http.Routing;
 
-namespace WebApi_2._2.Constraints
+namespace WebApi.Constraints
 {
     public class IdConstraint : IHttpRouteConstraint
     {
