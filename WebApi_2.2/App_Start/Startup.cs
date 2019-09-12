@@ -3,6 +3,8 @@ using Microsoft.Owin.Cors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
+using Swashbuckle.Application;
+using System;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Routing;
@@ -30,6 +32,21 @@ namespace WebApi
             json.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 
             ConfigureWebApi(app, config);
+            ConfigureSwashbuckle(config);
+
+        }
+
+        private void ConfigureSwashbuckle(HttpConfiguration config)
+        {
+       
+            config.EnableSwagger(c =>
+            {
+                c.SingleApiVersion("v1", "A title for your API");
+                var xmlDocPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\bin\\WebApi_2.2.xml";
+                c.IncludeXmlComments(xmlDocPath);
+            })
+            .EnableSwaggerUi();
+
 
         }
 
