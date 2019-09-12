@@ -5,13 +5,10 @@ namespace WebApi.DataAccess
 {
     public class AppDataContext : DbContext
     {
-        public AppDataContext() : base("AppDataContext") { }
-
-        public static AppDataContext Create()
+        public AppDataContext() : base("AppDataContext")
         {
-            return new AppDataContext();
+            this.Configuration.LazyLoadingEnabled = false;
         }
-
 
         public DbSet<AuthorizedApp> AuthorizedApps { get; set; }
         public DbSet<Tour> Tours { get; set; }
