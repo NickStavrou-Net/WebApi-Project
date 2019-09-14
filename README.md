@@ -12,4 +12,6 @@ In order to access the Api use the AuthorizeApp Model in the database file to ge
 ```
 If they have expired change the date in the database.
 
-[a link](https://jwt.io/) 
+After getting your Token you can make a 
+
+[JWT.IO](https://jwt.io/) allows you to decode, verify and generate JWT.
