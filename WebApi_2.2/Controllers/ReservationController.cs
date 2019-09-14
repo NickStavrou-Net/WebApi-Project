@@ -9,8 +9,9 @@ using WebApi.DataAccess;
 using WebApi.DataAccess.Models;
 using WebApi.Filters;
 
-namespace WebApi_2._2.Controllers
+namespace WebApi.Controllers
 {
+    [Authorize]
     public class ReservationController : ApiController
     {
         private AppDataContext db = new AppDataContext();
@@ -21,7 +22,9 @@ namespace WebApi_2._2.Controllers
             return db.Reservations.Include(t => t.Tour);
         }
 
+
         // GET: api/Reservation/5
+        [AllowAnonymous]
         [ResponseType(typeof(Reservation))]
         public async Task<IHttpActionResult> GetReservation(int id)
         {
