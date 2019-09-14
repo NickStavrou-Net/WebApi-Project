@@ -24,7 +24,6 @@ namespace WebApi.Controllers
 
 
         // GET: api/Reservation/5
-        [AllowAnonymous]
         [ResponseType(typeof(Reservation))]
         public async Task<IHttpActionResult> GetReservation(int id)
         {

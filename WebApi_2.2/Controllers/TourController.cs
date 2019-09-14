@@ -5,6 +5,7 @@ using WebApi.Dtos;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/tour")]
     public class TourController : ApiController
     {
