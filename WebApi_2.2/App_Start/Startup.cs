@@ -1,5 +1,7 @@
 ﻿using Microsoft.Owin;
 using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Jwt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
@@ -8,6 +10,7 @@ using System;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Routing;
+using WebApi.Config;
 using WebApi.Constraints;
 using WebApi.ExceptionHandlers;
 using WebApi.Filters;
@@ -23,7 +26,7 @@ namespace WebApi
 
         public void Configuration(IAppBuilder app)
         {
-            var config = Startup.HttpConfiguration;
+            var config = HttpConfiguration;
 
             var json = config.Formatters.JsonFormatter.SerializerSettings;
             json.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -33,12 +36,13 @@ namespace WebApi
 
             ConfigureWebApi(app, config);
             ConfigureSwashbuckle(config);
+            ConfigureJwt(app);
 
         }
 
         private void ConfigureSwashbuckle(HttpConfiguration config)
         {
-       
+
             config.EnableSwagger(c =>
             {
                 c.SingleApiVersion("v1", "A title for your API");
@@ -48,6 +52,19 @@ namespace WebApi
             .EnableSwaggerUi();
 
 
+        }
+
+        private void ConfigureJwt(IAppBuilder app)
+        {
+            app.UseJwtBearerAuthentication(new JwtBearerAuthenticationOptions
+            {
+                AuthenticationMode = AuthenticationMode.Active,
+                AllowedAudiences = new[] { GlobalConfig.Audience },
+                IssuerSecurityKeyProviders = new IIssuerSecurityKeyProvider[]
+                {
+                    new SymmetricKeyIssuerSecurityKeyProvider(GlobalConfig.Issuer, GlobalConfig.Secret)
+                }
+            });
         }
 
         private static void ConfigureWebApi(IAppBuilder app, HttpConfiguration config)
@@ -60,6 +77,10 @@ namespace WebApi
 
             config.Services.Replace(typeof(IExceptionLogger), new UnhandledExceptionLogger());
             config.Services.Replace(typeof(IExceptionHandler), new UnhandledExceptionHadler());
+
+            config.MessageHandlers.Add(new TokenValidationHandler());
+
+            //config.MessageHandlers.Add(new AuthenticationHandler()); ;
 
             config.Filters.Add(new DbUpdateExceptionFilterAttribute());
 

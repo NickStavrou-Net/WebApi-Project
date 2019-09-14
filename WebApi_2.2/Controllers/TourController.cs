@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Http;
 using WebApi.DataAccess;
-using WebApi_2._2.Dtos;
+using WebApi.Dtos;
 
 namespace WebApi.Controllers
 {
@@ -10,6 +10,11 @@ namespace WebApi.Controllers
     {
         private AppDataContext context = new AppDataContext();
 
+        /// <summary>
+        /// Get All Tours Available
+        /// </summary>
+        /// <param name="freeOnly"></param>
+        /// <returns></returns>
         [HttpGet]
         public IHttpActionResult GetAllTours([FromUri]bool freeOnly = false)
         {
@@ -27,6 +32,7 @@ namespace WebApi.Controllers
 
             return Ok(query.ToList());
         }
+
 
         [Route("{id:int}")]
         [HttpGet]

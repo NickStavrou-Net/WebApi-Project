@@ -195,6 +195,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Config\GlobalConfig.cs" />
     <Compile Include="Constraints\IdConstraint.cs" />
     <Compile Include="Controllers\AuthorizeController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
@@ -203,14 +204,19 @@
     <Compile Include="DataAccess\Models\AuthorizedApp.cs" />
     <Compile Include="DataAccess\Models\Reservation.cs" />
     <Compile Include="DataAccess\Models\Tour.cs" />
+    <Compile Include="Dtos\AppDto.cs" />
     <Compile Include="Dtos\AuthorizeRequestDto.cs" />
+    <Compile Include="Dtos\TokenDto.cs" />
     <Compile Include="Dtos\TourDto.cs" />
     <Compile Include="Dtos\TourSearchRequestDto.cs" />
     <Compile Include="ExceptionHandlers\UnhandledExceptionHadler.cs" />
+    <Compile Include="Filters\AuthenticationHandler.cs" />
     <Compile Include="Filters\DbUpdateExceptionFilterAttribute.cs" />
+    <Compile Include="Filters\TokenValidationHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\JwtTokenHelper.cs" />
     <Compile Include="HttpActionResults\ErrorContentResult.cs" />
     <Compile Include="Loggers\UnhandledExceptionLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

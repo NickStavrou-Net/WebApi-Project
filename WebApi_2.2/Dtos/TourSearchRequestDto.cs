@@ -1,4 +1,4 @@
-﻿namespace WebApi_2._2.Dtos
+﻿namespace WebApi.Dtos
 {
     public class TourSearchRequestDto
     {
