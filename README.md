@@ -11,3 +11,5 @@ In order to access the Api use the AuthorizeApp Model in the database file to ge
 }
 ```
 If they have expired change the date in the database.
+
+[a link](https://jwt.io/) 
